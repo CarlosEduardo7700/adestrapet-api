@@ -12,6 +12,6 @@ const dataSourceOptions: DataSourceOptions = {
   migrations: [__dirname + '/../migrations/*.{js,ts}'],
 };
 
-const dataSouce = new DataSource(dataSourceOptions);
+const dataSource = new DataSource(dataSourceOptions);
 
-export default dataSouce;
+export default dataSource;
