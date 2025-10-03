@@ -4,7 +4,7 @@ import { PostgresConfigService } from './database/config/postgres.config.service
 import { ConfigModule } from '@nestjs/config';
 import { UserModule } from './modules/user/user.module';
 import { LessonModule } from './modules/lesson/lesson.module';
-import { LessonProgressModule } from './lesson-progress/lesson-progress.module';
+import { LessonProgressModule } from './modules/lesson-progress/lesson-progress.module';
 
 @Module({
   imports: [
