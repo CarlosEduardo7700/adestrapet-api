@@ -3,9 +3,11 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { LessonProgress } from '../lesson-progress/lesson-progress.entity';
 
 @Entity({ name: 'lessons' })
 export class Lesson {
@@ -50,4 +52,7 @@ export class Lesson {
     nullable: true,
   })
   deletedAt: Date;
+
+  @OneToMany(() => LessonProgress, (lessonProgress) => lessonProgress.lesson)
+  lessonProgress: LessonProgress[];
 }

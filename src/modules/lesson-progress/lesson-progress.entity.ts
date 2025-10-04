@@ -3,9 +3,12 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { User } from '../user/user.entity';
+import { Lesson } from '../lesson/lesson.entity';
 
 @Entity({ name: 'lesson_progress' })
 export class LessonProgress {
@@ -42,4 +45,10 @@ export class LessonProgress {
     nullable: true,
   })
   deletedAt: Date;
+
+  @ManyToOne(() => User, (user) => user.lessonProgress)
+  user: User;
+
+  @ManyToOne(() => Lesson, (lesson) => lesson.lessonProgress)
+  lesson: Lesson;
 }
