@@ -3,28 +3,20 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
-  OneToMany,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { LessonProgress } from '../lesson-progress/lesson-progress.entity';
+import { User } from '../user/user.entity';
+import { Lesson } from '../lesson/lesson.entity';
 
-@Entity({ name: 'users' })
-export class User {
+@Entity({ name: 'lesson_progress' })
+export class LessonProgress {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ name: 'name', length: 200, nullable: false })
-  name: string;
-
-  @Column({ name: 'email', length: 255, nullable: false, unique: true })
-  email: string;
-
-  @Column({ name: 'password', length: 100, nullable: false, select: false })
-  password: string;
-
-  @Column({ name: 'streaks', nullable: false, type: 'integer' })
-  streaks: number;
+  @Column({ name: 'is_fav', nullable: false })
+  isFav: boolean;
 
   @Column({
     name: 'last_access',
@@ -54,6 +46,9 @@ export class User {
   })
   deletedAt: Date;
 
-  @OneToMany(() => LessonProgress, (lessonProgress) => lessonProgress.user)
-  lessonProgress: LessonProgress[];
+  @ManyToOne(() => User, (user) => user.lessonProgress)
+  user: User;
+
+  @ManyToOne(() => Lesson, (lesson) => lesson.lessonProgress)
+  lesson: Lesson;
 }
