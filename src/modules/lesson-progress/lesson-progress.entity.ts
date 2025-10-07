@@ -3,8 +3,9 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  JoinColumn,
   ManyToOne,
-  PrimaryGeneratedColumn,
+  PrimaryColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { User } from '../user/user.entity';
@@ -12,8 +13,11 @@ import { Lesson } from '../lesson/lesson.entity';
 
 @Entity({ name: 'lesson_progress' })
 export class LessonProgress {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
+  @PrimaryColumn('uuid', { name: 'user_id' })
+  userId: string;
+
+  @PrimaryColumn('uuid', { name: 'lesson_id' })
+  lessonId: string;
 
   @Column({ name: 'is_fav', nullable: false })
   isFav: boolean;
@@ -47,8 +51,10 @@ export class LessonProgress {
   deletedAt: Date;
 
   @ManyToOne(() => User, (user) => user.lessonProgress)
+  @JoinColumn({ name: 'user_id' })
   user: User;
 
   @ManyToOne(() => Lesson, (lesson) => lesson.lessonProgress)
+  @JoinColumn({ name: 'lesson_id' })
   lesson: Lesson;
 }
