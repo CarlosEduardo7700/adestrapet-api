@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Lesson } from '../lesson.entity';
 import { Repository } from 'typeorm';
 import { LessonListDto } from '../dto/responses/lesson-list.dto';
+import { LessonListDtoMapper } from '../factories/lesson-list.dto.mapper';
 
 @Injectable()
 export class LessonReader {
@@ -14,15 +15,8 @@ export class LessonReader {
   async getLessons(): Promise<LessonListDto[]> {
     const lessons: Lesson[] = await this.lessonRepository.find();
 
-    const lessonsResponse: LessonListDto[] = lessons.map((lesson) => {
-      return {
-        id: lesson.id,
-        title: lesson.title,
-        logoUrl: lesson.logoUrl,
-        duration: lesson.duration,
-        createdAt: lesson.createdAt,
-      };
-    });
+    const lessonsResponse: LessonListDto[] =
+      LessonListDtoMapper.createFromEntity(lessons);
 
     return lessonsResponse;
   }
