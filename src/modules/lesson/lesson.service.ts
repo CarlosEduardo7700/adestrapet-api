@@ -7,7 +7,7 @@ export class LessonService {
   constructor(private readonly lessonReader: LessonReader) {}
 
   async getLessons(): Promise<LessonListDto[]> {
-    const lessons = await this.lessonReader.getLessons();
+    const lessons: LessonListDto[] = await this.lessonReader.getLessons();
     return lessons;
   }
 }
