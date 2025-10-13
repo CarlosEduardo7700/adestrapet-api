@@ -12,8 +12,19 @@ export class LessonReader {
     private readonly lessonRepository: Repository<Lesson>,
   ) {}
 
-  async getLessons(): Promise<LessonListDto[]> {
-    const lessons: Lesson[] = await this.lessonRepository.find();
+  async getLessons(page: number, limit: number): Promise<LessonListDto[]> {
+    const currentPage: number = page || 1;
+    const itemsPerPage: number = limit || 10;
+
+    const skipItems: number = (currentPage - 1) * itemsPerPage;
+
+    const [lessons] = await this.lessonRepository.findAndCount({
+      take: itemsPerPage,
+      skip: skipItems,
+      order: {
+        updatedAt: 'DESC',
+      },
+    });
 
     const lessonsResponse: LessonListDto[] =
       LessonListDtoMapper.createFromEntity(lessons);

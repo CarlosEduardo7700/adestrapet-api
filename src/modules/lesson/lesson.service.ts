@@ -6,8 +6,11 @@ import { LessonListDto } from './dto/responses/lesson-list.dto';
 export class LessonService {
   constructor(private readonly lessonReader: LessonReader) {}
 
-  async getLessons(): Promise<LessonListDto[]> {
-    const lessons: LessonListDto[] = await this.lessonReader.getLessons();
+  async getLessons(page: number, limit: number): Promise<LessonListDto[]> {
+    const lessons: LessonListDto[] = await this.lessonReader.getLessons(
+      page,
+      limit,
+    );
     return lessons;
   }
 }
