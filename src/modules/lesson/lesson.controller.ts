@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Query } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
 import { LessonService } from './lesson.service';
 import { LessonListDto } from './dto/responses/lesson-list.dto';
 import { ControllerResponseDto } from './dto/responses/controller-response.dto';
@@ -35,6 +35,16 @@ export class LessonController {
     return {
       message: `Quantidade de aulas encontradas: ${lessons.length}.`,
       data: lessons,
+    };
+  }
+
+  @Get('/:id')
+  async getLessonById(@Param('id') id: string): Promise<ControllerResponseDto> {
+    const lesson = await this.lessonService.getLessonById(id);
+
+    return {
+      message: `Aula de ID '${id}' encontrada.`,
+      data: lesson,
     };
   }
 }

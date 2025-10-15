@@ -4,6 +4,8 @@ import { Lesson } from '../lesson.entity';
 import { Repository } from 'typeorm';
 import { LessonListDto } from '../dto/responses/lesson-list.dto';
 import { LessonListDtoMapper } from '../factories/lesson-list.dto.mapper';
+import { LessonDetailsDto } from '../dto/responses/lesson-details.dto';
+import { LessonDetailsDtoMapper } from '../factories/lesson-details.dto.mapper';
 
 @Injectable()
 export class LessonReader {
@@ -30,5 +32,16 @@ export class LessonReader {
       LessonListDtoMapper.createFromEntity(lessons);
 
     return lessonsResponse;
+  }
+
+  async getLessonById(id: string): Promise<LessonDetailsDto> {
+    const lesson: Lesson | null = await this.lessonRepository.findOneBy({ id });
+
+    if (!lesson) throw new Error(`Aula de ID '${id}' não encontrada!`);
+
+    const lessonDetails: LessonDetailsDto =
+      LessonDetailsDtoMapper.createFromEntity(lesson);
+
+    return lessonDetails;
   }
 }

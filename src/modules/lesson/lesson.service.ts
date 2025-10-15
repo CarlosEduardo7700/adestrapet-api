@@ -26,4 +26,10 @@ export class LessonService {
     );
     return lessons;
   }
+
+  async getLessonById(id: string): Promise<LessonDetailsDto> {
+    const lesson: LessonDetailsDto = await this.lessonReader.getLessonById(id);
+
+    return lesson;
+  }
 }
