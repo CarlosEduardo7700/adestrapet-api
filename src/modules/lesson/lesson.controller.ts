@@ -26,10 +26,12 @@ export class LessonController {
   async getLessons(
     @Query('page') page: number,
     @Query('limit') limit: number,
+    @Query('title') titleFilter: string,
   ): Promise<ControllerResponseDto> {
     const lessons: LessonListDto[] = await this.lessonService.getLessons(
       page,
       limit,
+      titleFilter,
     );
 
     return {

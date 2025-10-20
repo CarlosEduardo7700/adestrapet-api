@@ -19,10 +19,15 @@ export class LessonService {
     return lessonDetails;
   }
 
-  async getLessons(page: number, limit: number): Promise<LessonListDto[]> {
+  async getLessons(
+    page: number,
+    limit: number,
+    titleFilter?: string,
+  ): Promise<LessonListDto[]> {
     const lessons: LessonListDto[] = await this.lessonReader.getLessons(
       page,
       limit,
+      titleFilter,
     );
     return lessons;
   }

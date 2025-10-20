@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Lesson } from '../lesson.entity';
-import { Repository } from 'typeorm';
+import { FindManyOptions, ILike, Repository } from 'typeorm';
 import { LessonListDto } from '../dto/responses/lesson-list.dto';
 import { LessonListDtoMapper } from '../factories/lesson-list.dto.mapper';
 import { LessonDetailsDto } from '../dto/responses/lesson-details.dto';
@@ -14,19 +14,31 @@ export class LessonReader {
     private readonly lessonRepository: Repository<Lesson>,
   ) {}
 
-  async getLessons(page: number, limit: number): Promise<LessonListDto[]> {
+  async getLessons(
+    page: number,
+    limit: number,
+    titleFilter?: string,
+  ): Promise<LessonListDto[]> {
     const currentPage: number = page || 1;
     const itemsPerPage: number = limit || 10;
 
     const skipItems: number = (currentPage - 1) * itemsPerPage;
 
-    const [lessons] = await this.lessonRepository.findAndCount({
+    const queryOptions: FindManyOptions<Lesson> = {
       take: itemsPerPage,
       skip: skipItems,
       order: {
         updatedAt: 'DESC',
       },
-    });
+    };
+
+    if (titleFilter) {
+      queryOptions.where = {
+        title: ILike(`%${titleFilter}%`),
+      };
+    }
+
+    const [lessons] = await this.lessonRepository.findAndCount(queryOptions);
 
     const lessonsResponse: LessonListDto[] =
       LessonListDtoMapper.createFromEntity(lessons);
