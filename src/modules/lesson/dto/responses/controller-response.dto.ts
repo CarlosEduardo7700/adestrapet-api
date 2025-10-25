@@ -1,4 +1,4 @@
 export class ControllerResponseDto {
   message: string;
-  data: unknown;
+  data?: unknown;
 }

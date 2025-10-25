@@ -6,6 +6,7 @@ import { LessonCreator } from './delegates/lesson-creator';
 import { LessonDetailsDto } from './dto/responses/lesson-details.dto';
 import { EditLessonDto } from './dto/requests/edit-lesson.dto';
 import { LessonEditor } from './delegates/lesson-editor';
+import { LessonDeleter } from './delegates/lesson-deleter';
 
 @Injectable()
 export class LessonService {
@@ -13,6 +14,7 @@ export class LessonService {
     private readonly lessonCreator: LessonCreator,
     private readonly lessonReader: LessonReader,
     private readonly lessonEditor: LessonEditor,
+    private readonly lessonDeleter: LessonDeleter,
   ) {}
 
   async createLesson(dto: CreateLessonDto): Promise<LessonDetailsDto> {
@@ -46,6 +48,13 @@ export class LessonService {
       id,
       dto,
     );
+
+    return lessonDetails;
+  }
+
+  async deleteLesson(id: string): Promise<LessonDetailsDto> {
+    const lessonDetails: LessonDetailsDto =
+      await this.lessonDeleter.deleteLesson(id);
 
     return lessonDetails;
   }

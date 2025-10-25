@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Patch,
@@ -71,6 +72,17 @@ export class LessonController {
 
     return {
       message: `Aula de ID '${id}' atualizada.`,
+      data: lessonDetails,
+    };
+  }
+
+  @Delete('/:id')
+  async deleteLesson(@Param('id') id: string): Promise<ControllerResponseDto> {
+    const lessonDetails: LessonDetailsDto =
+      await this.lessonService.deleteLesson(id);
+
+    return {
+      message: `Aula de ID ${id} deletada.`,
       data: lessonDetails,
     };
   }
