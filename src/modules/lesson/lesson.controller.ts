@@ -10,10 +10,10 @@ import {
 } from '@nestjs/common';
 import { LessonService } from './lesson.service';
 import { LessonListDto } from './dto/responses/lesson-list.dto';
-import { ControllerResponseDto } from './dto/responses/controller-response.dto';
 import { CreateLessonDto } from './dto/requests/create-lesson.dto';
 import { LessonDetailsDto } from './dto/responses/lesson-details.dto';
 import { EditLessonDto } from './dto/requests/edit-lesson.dto';
+import { ControllerResponseDto } from '../dtos/responses/controller-response.dto';
 
 @Controller('lesson')
 export class LessonController {
