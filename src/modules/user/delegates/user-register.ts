@@ -15,7 +15,7 @@ export class UserRegister {
   ) {}
 
   async resgisterUser(dto: RegisterUserDto): Promise<UserDetailsDto> {
-    const user: User = UserFactory.createFromDto(dto);
+    const user: User = await UserFactory.createFromDto(dto);
 
     const registeredUser: User = await this.userRepository.save(user);
 
