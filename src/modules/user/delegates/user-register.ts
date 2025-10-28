@@ -5,6 +5,7 @@ import { User } from '../user.entity';
 import { RegisterUserDto } from '../dto/requests/register-user.dto';
 import { UserDetailsDto } from '../dto/responses/user-details.dto';
 import { UserFactory } from '../factories/user.factory';
+import { UserDetailsDtoMapper } from '../factories/user-details.dto.mapper';
 
 @Injectable()
 export class UserRegister {
@@ -16,7 +17,10 @@ export class UserRegister {
   async resgisterUser(dto: RegisterUserDto): Promise<UserDetailsDto> {
     const user: User = UserFactory.createFromDto(dto);
 
-    const userDetails: UserDetailsDto = await this.userRepository.save(user);
+    const registeredUser: User = await this.userRepository.save(user);
+
+    const userDetails: UserDetailsDto =
+      UserDetailsDtoMapper.createFromEntity(registeredUser);
 
     return userDetails;
   }
