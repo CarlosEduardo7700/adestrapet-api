@@ -1,9 +1,18 @@
-import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Query,
+} from '@nestjs/common';
 import { UserService } from './user.service';
 import { ControllerResponseDto } from '../dtos/responses/controller-response.dto';
 import { RegisterUserDto } from './dto/requests/register-user.dto';
 import { UserDetailsDto } from './dto/responses/user-details.dto';
 import { UserListDto } from './dto/responses/user-list.dto';
+import { UpdateUserDto } from './dto/requests/update-user.dto';
 
 @Controller('user')
 export class UserController {
@@ -42,6 +51,22 @@ export class UserController {
     return {
       message: `Usuário de ID '${id}' encontrado.`,
       data: user,
+    };
+  }
+
+  @Patch('/:id')
+  async updateUser(
+    @Param('id') id: string,
+    @Body() dto: UpdateUserDto,
+  ): Promise<ControllerResponseDto> {
+    const userDetails: UserDetailsDto = await this.userService.updateUser(
+      id,
+      dto,
+    );
+
+    return {
+      message: `Usuário de ID '${id}' atualizado.`,
+      data: userDetails,
     };
   }
 }

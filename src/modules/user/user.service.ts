@@ -4,12 +4,15 @@ import { UserDetailsDto } from './dto/responses/user-details.dto';
 import { UserRegister } from './delegates/user-register';
 import { UserListDto } from './dto/responses/user-list.dto';
 import { UserReader } from './delegates/user-reader';
+import { UpdateUserDto } from './dto/requests/update-user.dto';
+import { UserUpdater } from './delegates/user-updater';
 
 @Injectable()
 export class UserService {
   constructor(
     private readonly userRegister: UserRegister,
     private readonly userReader: UserReader,
+    private readonly userUpdater: UserUpdater,
   ) {}
 
   async resgisterUser(dto: RegisterUserDto): Promise<UserDetailsDto> {
@@ -28,5 +31,14 @@ export class UserService {
     const user: UserDetailsDto = await this.userReader.getUserById(id);
 
     return user;
+  }
+
+  async updateUser(id: string, dto: UpdateUserDto): Promise<UserDetailsDto> {
+    const userDetails: UserDetailsDto = await this.userUpdater.updateUser(
+      id,
+      dto,
+    );
+
+    return userDetails;
   }
 }
