@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Patch,
@@ -66,6 +67,16 @@ export class UserController {
 
     return {
       message: `Usuário de ID '${id}' atualizado.`,
+      data: userDetails,
+    };
+  }
+
+  @Delete('/:id')
+  async deleteUser(@Param('id') id: string): Promise<ControllerResponseDto> {
+    const userDetails: UserDetailsDto = await this.userService.deleteUser(id);
+
+    return {
+      message: `Usuário de ID ${id} deletado.`,
       data: userDetails,
     };
   }

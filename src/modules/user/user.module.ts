@@ -6,10 +6,11 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserRegister } from './delegates/user-register';
 import { UserReader } from './delegates/user-reader';
 import { UserUpdater } from './delegates/user-updater';
+import { UserDeleter } from './delegates/user-deleter';
 
 @Module({
   imports: [TypeOrmModule.forFeature([User])],
   controllers: [UserController],
-  providers: [UserService, UserRegister, UserReader, UserUpdater],
+  providers: [UserService, UserRegister, UserReader, UserUpdater, UserDeleter],
 })
 export class UserModule {}
