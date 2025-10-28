@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Query } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
 import { UserService } from './user.service';
 import { ControllerResponseDto } from '../dtos/responses/controller-response.dto';
 import { RegisterUserDto } from './dto/requests/register-user.dto';
@@ -32,6 +32,16 @@ export class UserController {
     return {
       message: `Quantidade de usuários encontrados: ${users.length}.`,
       data: users,
+    };
+  }
+
+  @Get('/:id')
+  async getUserById(@Param('id') id: string): Promise<ControllerResponseDto> {
+    const user: UserDetailsDto = await this.userService.getUserById(id);
+
+    return {
+      message: `Usuário de ID '${id}' encontrado.`,
+      data: user,
     };
   }
 }

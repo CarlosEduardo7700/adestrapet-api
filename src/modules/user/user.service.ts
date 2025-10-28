@@ -23,4 +23,10 @@ export class UserService {
     const users: UserListDto[] = await this.userReader.getUsers(page, limit);
     return users;
   }
+
+  async getUserById(id: string): Promise<UserDetailsDto> {
+    const user: UserDetailsDto = await this.userReader.getUserById(id);
+
+    return user;
+  }
 }

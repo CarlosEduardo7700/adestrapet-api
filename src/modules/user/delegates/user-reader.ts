@@ -4,6 +4,8 @@ import { FindManyOptions, Repository } from 'typeorm';
 import { User } from '../user.entity';
 import { UserListDto } from '../dto/responses/user-list.dto';
 import { UserListDtoMapper } from '../factories/user-list.dto.mapper';
+import { UserDetailsDto } from '../dto/responses/user-details.dto';
+import { UserDetailsDtoMapper } from '../factories/user-details.dto.mapper';
 
 @Injectable()
 export class UserReader {
@@ -31,5 +33,16 @@ export class UserReader {
     const usersList: UserListDto[] = UserListDtoMapper.createFromEntity(users);
 
     return usersList;
+  }
+
+  async getUserById(id: string): Promise<UserDetailsDto> {
+    const user: User | null = await this.userRepository.findOneBy({ id });
+
+    if (!user) throw new Error(`Usuário de ID '${id}' não encontrado!`);
+
+    const userDetails: UserDetailsDto =
+      UserDetailsDtoMapper.createFromEntity(user);
+
+    return userDetails;
   }
 }
