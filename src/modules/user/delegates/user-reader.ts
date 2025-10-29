@@ -45,4 +45,9 @@ export class UserReader {
 
     return userDetails;
   }
+
+  async getUserByEmail(email: string): Promise<User | null> {
+    const user: User | null = await this.userRepository.findOneBy({ email });
+    return user;
+  }
 }

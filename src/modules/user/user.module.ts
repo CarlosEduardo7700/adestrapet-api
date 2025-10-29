@@ -20,5 +20,6 @@ import { UserFactory } from './factories/user.factory';
     UserDeleter,
     UserFactory,
   ],
+  exports: [UserService],
 })
 export class UserModule {}

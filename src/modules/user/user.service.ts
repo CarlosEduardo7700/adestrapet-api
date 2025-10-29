@@ -7,6 +7,7 @@ import { UserReader } from './delegates/user-reader';
 import { UpdateUserDto } from './dto/requests/update-user.dto';
 import { UserUpdater } from './delegates/user-updater';
 import { UserDeleter } from './delegates/user-deleter';
+import { User } from './user.entity';
 
 @Injectable()
 export class UserService {
@@ -32,6 +33,11 @@ export class UserService {
   async getUserById(id: string): Promise<UserDetailsDto> {
     const user: UserDetailsDto = await this.userReader.getUserById(id);
 
+    return user;
+  }
+
+  async getUserByEmail(email: string): Promise<User | null> {
+    const user: User | null = await this.userReader.getUserByEmail(email);
     return user;
   }
 
