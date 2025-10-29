@@ -36,8 +36,9 @@ export class UserService {
     return user;
   }
 
-  async getUserByEmail(email: string): Promise<User | null> {
-    const user: User | null = await this.userReader.getUserByEmail(email);
+  async getUserByEmailForAuth(email: string): Promise<User | null> {
+    const user: User | null =
+      await this.userReader.getUserByEmailForAuth(email);
     return user;
   }
 
