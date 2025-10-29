@@ -5,6 +5,7 @@ import { ConfigModule } from '@nestjs/config';
 import { UserModule } from './modules/user/user.module';
 import { LessonModule } from './modules/lesson/lesson.module';
 import { LessonProgressModule } from './modules/lesson-progress/lesson-progress.module';
+import { AuthModule } from './modules/auth/auth.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { LessonProgressModule } from './modules/lesson-progress/lesson-progress.
     UserModule,
     LessonModule,
     LessonProgressModule,
+    AuthModule,
   ],
   controllers: [],
   providers: [],
