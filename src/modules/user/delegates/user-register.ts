@@ -12,10 +12,11 @@ export class UserRegister {
   constructor(
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
+    private readonly userFactory: UserFactory,
   ) {}
 
   async resgisterUser(dto: RegisterUserDto): Promise<UserDetailsDto> {
-    const user: User = await UserFactory.createFromDto(dto);
+    const user: User = await this.userFactory.createFromDto(dto);
 
     const registeredUser: User = await this.userRepository.save(user);
 

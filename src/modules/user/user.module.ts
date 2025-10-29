@@ -7,10 +7,18 @@ import { UserRegister } from './delegates/user-register';
 import { UserReader } from './delegates/user-reader';
 import { UserUpdater } from './delegates/user-updater';
 import { UserDeleter } from './delegates/user-deleter';
+import { UserFactory } from './factories/user.factory';
 
 @Module({
   imports: [TypeOrmModule.forFeature([User])],
   controllers: [UserController],
-  providers: [UserService, UserRegister, UserReader, UserUpdater, UserDeleter],
+  providers: [
+    UserService,
+    UserRegister,
+    UserReader,
+    UserUpdater,
+    UserDeleter,
+    UserFactory,
+  ],
 })
 export class UserModule {}
