@@ -49,7 +49,7 @@ export class UserReader {
   async getUserByEmailForAuth(email: string): Promise<User | null> {
     const user: User | null = await this.userRepository.findOne({
       where: { email },
-      select: ['password'],
+      select: ['id', 'password', 'email'],
     });
     return user;
   }
