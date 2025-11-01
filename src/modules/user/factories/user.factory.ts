@@ -10,8 +10,9 @@ export class UserFactory {
 
   async createFromDto(dto: RegisterUserDto): Promise<User> {
     const user = new User();
-    const saltRounds: number | undefined =
-      this.configService.get<number>('SALT_ROUNDS');
+    const saltRounds: number | undefined = Number(
+      this.configService.get<number>('SALT_ROUNDS'),
+    );
 
     if (!saltRounds)
       throw new Error(`O salt para hashing da senha não foi fornecido!`);
