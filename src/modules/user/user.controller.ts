@@ -7,6 +7,7 @@ import {
   Patch,
   Post,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { ControllerResponseDto } from '../dtos/responses/controller-response.dto';
@@ -14,6 +15,7 @@ import { RegisterUserDto } from './dto/requests/register-user.dto';
 import { UserDetailsDto } from './dto/responses/user-details.dto';
 import { UserListDto } from './dto/responses/user-list.dto';
 import { UpdateUserDto } from './dto/requests/update-user.dto';
+import { AuthGuard } from '../auth/guards/auth.guard';
 
 @Controller('user')
 export class UserController {
@@ -33,6 +35,7 @@ export class UserController {
   }
 
   @Get()
+  @UseGuards(AuthGuard)
   async getUsers(
     @Query('page') page: number,
     @Query('limit') limit: number,
@@ -46,6 +49,7 @@ export class UserController {
   }
 
   @Get('/:id')
+  @UseGuards(AuthGuard)
   async getUserById(@Param('id') id: string): Promise<ControllerResponseDto> {
     const user: UserDetailsDto = await this.userService.getUserById(id);
 
@@ -56,6 +60,7 @@ export class UserController {
   }
 
   @Patch('/:id')
+  @UseGuards(AuthGuard)
   async updateUser(
     @Param('id') id: string,
     @Body() dto: UpdateUserDto,
@@ -72,6 +77,7 @@ export class UserController {
   }
 
   @Delete('/:id')
+  @UseGuards(AuthGuard)
   async deleteUser(@Param('id') id: string): Promise<ControllerResponseDto> {
     const userDetails: UserDetailsDto = await this.userService.deleteUser(id);
 

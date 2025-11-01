@@ -7,6 +7,7 @@ import {
   Patch,
   Post,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import { LessonService } from './lesson.service';
 import { LessonListDto } from './dto/responses/lesson-list.dto';
@@ -14,8 +15,10 @@ import { CreateLessonDto } from './dto/requests/create-lesson.dto';
 import { LessonDetailsDto } from './dto/responses/lesson-details.dto';
 import { EditLessonDto } from './dto/requests/edit-lesson.dto';
 import { ControllerResponseDto } from '../dtos/responses/controller-response.dto';
+import { AuthGuard } from '../auth/guards/auth.guard';
 
 @Controller('lesson')
+@UseGuards(AuthGuard)
 export class LessonController {
   constructor(private readonly lessonService: LessonService) {}
 
