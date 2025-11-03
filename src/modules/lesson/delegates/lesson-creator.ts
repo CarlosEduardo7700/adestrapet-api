@@ -5,6 +5,7 @@ import { Repository } from 'typeorm';
 import { CreateLessonDto } from '../dto/requests/create-lesson.dto';
 import { LessonDetailsDto } from '../dto/responses/lesson-details.dto';
 import { LessonFactory } from '../factories/lesson.factory';
+import { LessonDetailsDtoMapper } from '../factories/lesson-details.dto.mapper';
 
 @Injectable()
 export class LessonCreator {
@@ -16,8 +17,10 @@ export class LessonCreator {
   async createLesson(dto: CreateLessonDto): Promise<LessonDetailsDto> {
     const lesson: Lesson = LessonFactory.createFromDto(dto);
 
+    const createdLesson: Lesson = await this.lessonRepository.save(lesson);
+
     const lessonDetails: LessonDetailsDto =
-      await this.lessonRepository.save(lesson);
+      LessonDetailsDtoMapper.createFromEntity(createdLesson);
 
     return lessonDetails;
   }

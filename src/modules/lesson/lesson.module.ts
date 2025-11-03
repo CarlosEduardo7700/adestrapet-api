@@ -7,9 +7,10 @@ import { Lesson } from './lesson.entity';
 import { LessonCreator } from './delegates/lesson-creator';
 import { LessonEditor } from './delegates/lesson-editor';
 import { LessonDeleter } from './delegates/lesson-deleter';
+import { AuthModule } from '../auth/auth.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Lesson])],
+  imports: [TypeOrmModule.forFeature([Lesson]), AuthModule],
   controllers: [LessonController],
   providers: [
     LessonService,
