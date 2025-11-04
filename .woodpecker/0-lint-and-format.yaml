@@ -1,0 +1,13 @@
+steps:
+  - name: install-dependencies
+    image: node
+    commands:
+      - npm install
+  - name: linter
+    image: node
+    commands:
+      - npm run lint:check
+  - name: formatter
+    image: node
+    commands:
+      - npm run format:check
