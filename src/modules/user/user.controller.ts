@@ -30,7 +30,7 @@ export class UserController {
       await this.userService.resgisterUser(dto);
 
     return {
-      message: 'Usuário cadastrado com sucesso!',
+      message: 'Usuário cadastrado com sucesso',
       data: userDetails,
     };
   }
