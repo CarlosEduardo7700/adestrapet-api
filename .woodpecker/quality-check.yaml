@@ -1,0 +1,28 @@
+when:
+  event: push
+  branch:
+    exclude: main
+
+steps:
+  install_dependencies:
+    name: Install Dependencies
+    image: node
+    commands:
+      - echo "Installing the dependencies..."
+      - npm ci
+
+  lint_check:
+    name: Check Linter (Style and Errors)
+    image: node
+    commands:
+      - echo "Running linter check..."
+      - npm run lint:check
+
+  format_check:
+    name: Check Formatting (Prettier)
+    image: node
+    commands:
+      - echo "Running Prettier check..."
+      - npm run format:check
+
+  # TODO: Executing Unit Tests...
