@@ -27,7 +27,7 @@ services:
       - postgres
     networks:
       - postgres
-  
+
   woodpecker-server:
     image: woodpeckerci/woodpecker-server:v3
     ports:
