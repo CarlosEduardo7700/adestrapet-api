@@ -4,6 +4,8 @@ import { LessonProgressDetailsDto } from './dto/responses/lesson-progress-detail
 import { LessonProgressSaver } from './delegates/lesson-progress-saver';
 import { LessonProgressReader } from './delegates/lesson-progress-reader';
 import { LessonProgressListDto } from './dto/responses/lesson-progress-list.dto';
+import { LessonProgress } from './lesson-progress.entity';
+import { FindOptionsWhere } from 'typeorm';
 
 @Injectable()
 export class LessonProgressService {
@@ -26,12 +28,14 @@ export class LessonProgressService {
     page: number,
     limit: number,
     userId: string,
+    extraFilters?: FindOptionsWhere<LessonProgress>,
   ): Promise<LessonProgressListDto[]> {
     const userProgress: LessonProgressListDto[] =
       await this.lessonProgressReader.getLessonProgressByUserId(
         page,
         limit,
         userId,
+        extraFilters,
       );
 
     return userProgress;

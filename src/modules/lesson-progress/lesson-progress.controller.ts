@@ -56,4 +56,26 @@ export class LessonProgressController {
       data: userProgress,
     };
   }
+
+  @Get('/favorites')
+  async getLessonProgressFavorites(
+    @Req() request: AuthRequest,
+    @Query('page') page: number,
+    @Query('limit') limit: number,
+  ): Promise<ControllerResponseDto> {
+    const userId: string = request.userData.id;
+
+    const userProgress: LessonProgressListDto[] =
+      await this.lessonProgressService.getLessonProgressByUserId(
+        page,
+        limit,
+        userId,
+        { isFav: true },
+      );
+
+    return {
+      message: `Aulas favoritas do usuário de ID '${userId}' encontradas.`,
+      data: userProgress,
+    };
+  }
 }
