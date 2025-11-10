@@ -33,6 +33,7 @@ export class LessonProgressReader {
       order: {
         updatedAt: 'DESC',
       },
+      relations: ['lesson'],
     };
 
     const [userProgress] =
