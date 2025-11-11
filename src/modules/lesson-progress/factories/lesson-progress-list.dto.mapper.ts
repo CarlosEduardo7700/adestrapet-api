@@ -6,7 +6,6 @@ export class LessonProgressListDtoMapper {
     return progress.map((progress: LessonProgress) => {
       const lessonProgressListDto = {
         userId: progress.userId,
-        lessonId: progress.lessonId,
         isFav: progress.isFav,
         lastAccess: progress.lastAccess,
         lesson: {
