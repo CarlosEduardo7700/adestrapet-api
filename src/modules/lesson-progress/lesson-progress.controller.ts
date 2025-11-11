@@ -1,7 +1,9 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
+  Param,
   Post,
   Query,
   Req,
@@ -76,6 +78,22 @@ export class LessonProgressController {
     return {
       message: `Aulas favoritas do usuário de ID '${userId}' encontradas.`,
       data: userProgress,
+    };
+  }
+
+  @Delete('/:lessonId')
+  async deleteLessonProgress(
+    @Req() request: AuthRequest,
+    @Param('lessonId') lessonId: string,
+  ): Promise<ControllerResponseDto> {
+    const userId: string = request.userData.id;
+
+    const progressDetails: LessonProgressDetailsDto =
+      await this.lessonProgressService.deleteLessonProgress(userId, lessonId);
+
+    return {
+      message: `Progresso da aula de ID ${progressDetails.lessonId} deletada.`,
+      data: progressDetails,
     };
   }
 }

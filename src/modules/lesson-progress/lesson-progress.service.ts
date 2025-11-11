@@ -6,12 +6,14 @@ import { LessonProgressReader } from './delegates/lesson-progress-reader';
 import { LessonProgressListDto } from './dto/responses/lesson-progress-list.dto';
 import { LessonProgress } from './lesson-progress.entity';
 import { FindOptionsWhere } from 'typeorm';
+import { LessonProgressDeleter } from './delegates/lesson-progress-deleter';
 
 @Injectable()
 export class LessonProgressService {
   constructor(
     private readonly lessonProgressSaver: LessonProgressSaver,
     private readonly lessonProgressReader: LessonProgressReader,
+    private readonly lessonProgressDeleter: LessonProgressDeleter,
   ) {}
 
   async saveLessonProgress(
@@ -39,5 +41,15 @@ export class LessonProgressService {
       );
 
     return userProgress;
+  }
+
+  async deleteLessonProgress(
+    userId: string,
+    lessonId: string,
+  ): Promise<LessonProgressDetailsDto> {
+    const progressDetails: LessonProgressDetailsDto =
+      await this.lessonProgressDeleter.deleteLessonProgress(userId, lessonId);
+
+    return progressDetails;
   }
 }
