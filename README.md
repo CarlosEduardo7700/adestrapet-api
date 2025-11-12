@@ -2,33 +2,39 @@
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
 </p>
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
-
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+# AdestraPet API
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Backend API developed in [NestJS](https://github.com/nestjs/nest) for the AdestraPet project. This video lesson platform allows users to register and authenticate to gain exclusive access to pet training content.
+
+## Stack
+
+- **Language:** TypeScript
+- **Framework:** NestJS
+- **ORM:** TypeORM
+- **Database:** PostgreSQL
+- **Containers:** Docker & Docker Compose.
+- **Security:** BCryptjs, JWT.
+- **CI/CD Tools:** Woodpecker CI
 
 ## Project setup
 
+1 - Install the necessary dependencies:
 ```bash
 $ npm install
+```
+
+2 - Copy the `.env.example` file, rename it to `.env`, and fill in the necessary environment variables.
+
+3 - Run the docker-compose command:
+```bash
+$ docker compose up -d
+```
+
+4 - Run the migrations command:
+```bash
+$ npm run typeorm migration:run
 ```
 
 ## Compile and run the project
@@ -44,7 +50,7 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
-## Run tests
+## Run tests (Pending development...)
 
 ```bash
 # unit tests
@@ -56,19 +62,6 @@ $ npm run test:e2e
 # test coverage
 $ npm run test:cov
 ```
-
-## Deployment
-
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
-
-```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
-```
-
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
 
 ## Resources
 
@@ -83,16 +76,43 @@ Check out a few resources that may come in handy when working with NestJS:
 - To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
 - Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
 
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
 ## License
 
 Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+
+## Endpoints
+
+### Auth Module
+
+| Método        | URL             | Description |
+| ------------- | --------------- | ----------- |
+| POST          | /auth/login     | Uses email and password to log-in. |
+
+### User Module
+
+| Método        | URL             | Description |
+| ------------- | --------------- | ----------- |
+| POST          | /user           | Registers a user. |
+| GET           | /user           | Lists all users (with pagination). |
+| GET           | /user/details   | Retrieves user data. |
+| PATCH         | /user           | Updates user data. |
+| DELETE        | /user           | Deletes a user (soft delete). |
+
+### Lesson Module
+
+| Método        | URL             | Description |
+| ------------- | --------------- | ----------- |
+| POST          | /lesson         | Creates a lesson. |
+| GET           | /lesson         | Lists all lessons (with pagination and filters). |
+| GET           | /lesson/{id}    | Searches for lessons by ID. |
+| PATCH         | /lesson/{id}    | Edits lesson data. |
+| DELETE        | /lesson/{id}    | Deletes a lesson (soft delete). |
+
+### Lesson Progress Module
+
+| Método        | URL                         | Description |
+| ------------- | --------------------------- | ----------- |
+| POST          | /lesson-progress            | Saves user progress. |
+| GET           | /lesson-progress/mine       | Lists all user lessons (with pagination). |
+| GET           | /lesson-progress/favorites  | Lists all of the user's favorite lessons. |
+| DELETE        | /lesson-progress/{lessonId} | Deletes the user's progress for a lesson. (soft delete). |
