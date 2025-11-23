@@ -1,8 +1,10 @@
+import { Injectable } from '@nestjs/common';
 import { UserDetailsDto } from '../dto/responses/user-details.dto';
 import { User } from '../user.entity';
 
+@Injectable()
 export class UserDetailsDtoMapper {
-  static createFromEntity(user: User): UserDetailsDto {
+  createFromEntity(user: User): UserDetailsDto {
     return {
       id: user.id,
       name: user.name,

@@ -13,6 +13,7 @@ export class UserRegister {
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
     private readonly userFactory: UserFactory,
+    private readonly userDetailsDtoMapper: UserDetailsDtoMapper,
   ) {}
 
   async resgisterUser(dto: RegisterUserDto): Promise<UserDetailsDto> {
@@ -21,7 +22,7 @@ export class UserRegister {
     const registeredUser: User = await this.userRepository.save(user);
 
     const userDetails: UserDetailsDto =
-      UserDetailsDtoMapper.createFromEntity(registeredUser);
+      this.userDetailsDtoMapper.createFromEntity(registeredUser);
 
     return userDetails;
   }
