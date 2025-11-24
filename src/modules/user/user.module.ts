@@ -11,6 +11,7 @@ import { UserFactory } from './factories/user.factory';
 import { AuthModule } from '../auth/auth.module';
 import { UserDetailsDtoMapper } from './factories/user-details.dto.mapper';
 import { UserListDtoMapper } from './factories/user-list.dto.mapper';
+import { UpdateUserDtoMapper } from './factories/update-user.dto.mapper';
 
 @Module({
   imports: [TypeOrmModule.forFeature([User]), forwardRef(() => AuthModule)],
@@ -24,6 +25,7 @@ import { UserListDtoMapper } from './factories/user-list.dto.mapper';
     UserFactory,
     UserDetailsDtoMapper,
     UserListDtoMapper,
+    UpdateUserDtoMapper,
   ],
   exports: [UserService],
 })

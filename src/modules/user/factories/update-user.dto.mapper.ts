@@ -1,8 +1,10 @@
+import { Injectable } from '@nestjs/common';
 import { UpdateUserDto } from '../dto/requests/update-user.dto';
 import { User } from '../user.entity';
 
+@Injectable()
 export class UpdateUserDtoMapper {
-  static toUpdatedData(dto: UpdateUserDto): Partial<User> {
+  toUpdatedData(dto: UpdateUserDto): Partial<User> {
     const updatedData: Partial<User> = {};
 
     if (dto.name !== undefined) {
