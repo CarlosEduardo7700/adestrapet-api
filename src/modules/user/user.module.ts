@@ -10,6 +10,7 @@ import { UserDeleter } from './delegates/user-deleter';
 import { UserFactory } from './factories/user.factory';
 import { AuthModule } from '../auth/auth.module';
 import { UserDetailsDtoMapper } from './factories/user-details.dto.mapper';
+import { UserListDtoMapper } from './factories/user-list.dto.mapper';
 
 @Module({
   imports: [TypeOrmModule.forFeature([User]), forwardRef(() => AuthModule)],
@@ -22,6 +23,7 @@ import { UserDetailsDtoMapper } from './factories/user-details.dto.mapper';
     UserDeleter,
     UserFactory,
     UserDetailsDtoMapper,
+    UserListDtoMapper,
   ],
   exports: [UserService],
 })

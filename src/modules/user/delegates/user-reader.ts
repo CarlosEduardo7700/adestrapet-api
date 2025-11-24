@@ -12,6 +12,7 @@ export class UserReader {
   constructor(
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
+    private readonly userListDtoMapper: UserListDtoMapper,
     private readonly userDetailsDtoMapper: UserDetailsDtoMapper,
   ) {}
 
@@ -31,7 +32,8 @@ export class UserReader {
 
     const [users] = await this.userRepository.findAndCount(queryOptions);
 
-    const usersList: UserListDto[] = UserListDtoMapper.createFromEntity(users);
+    const usersList: UserListDto[] =
+      this.userListDtoMapper.createFromEntity(users);
 
     return usersList;
   }
