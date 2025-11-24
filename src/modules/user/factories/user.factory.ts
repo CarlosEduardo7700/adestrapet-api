@@ -1,4 +1,4 @@
-import bcrypt from 'node_modules/bcryptjs';
+import bcrypt from 'bcryptjs';
 import { RegisterUserDto } from '../dto/requests/register-user.dto';
 import { User } from '../user.entity';
 import { ConfigService } from '@nestjs/config';

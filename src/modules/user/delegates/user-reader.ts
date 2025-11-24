@@ -12,6 +12,8 @@ export class UserReader {
   constructor(
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
+    private readonly userListDtoMapper: UserListDtoMapper,
+    private readonly userDetailsDtoMapper: UserDetailsDtoMapper,
   ) {}
 
   async getUsers(page: number, limit: number): Promise<UserListDto[]> {
@@ -30,7 +32,8 @@ export class UserReader {
 
     const [users] = await this.userRepository.findAndCount(queryOptions);
 
-    const usersList: UserListDto[] = UserListDtoMapper.createFromEntity(users);
+    const usersList: UserListDto[] =
+      this.userListDtoMapper.createFromEntity(users);
 
     return usersList;
   }
@@ -41,7 +44,7 @@ export class UserReader {
     if (!user) throw new Error(`Usuário de ID '${id}' não encontrado!`);
 
     const userDetails: UserDetailsDto =
-      UserDetailsDtoMapper.createFromEntity(user);
+      this.userDetailsDtoMapper.createFromEntity(user);
 
     return userDetails;
   }
